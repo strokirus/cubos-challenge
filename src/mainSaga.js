@@ -1,8 +1,10 @@
 import { fork } from 'redux-saga/effects';
-import appSaga from './containers/App/sagas';
+import searchSaga from './containers/Search/sagas';
+import movieSaga from './containers/Movie/sagas';
 
 const sagas = [
-  appSaga,
+  searchSaga,
+  movieSaga,
 ];
 
 /**

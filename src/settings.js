@@ -1,11 +1,14 @@
 export const MOVIEDB_API_KEY = '7d7e7b567dc60a1fe9771413fc6472d8';
 export const MOVIEDB_SERVER = 'https://api.themoviedb.org/3/';
+export const TOTAL_PAGINATION = 5;
 
 /**
  * Describe all routes is available in project
 */
 export const routePaths = {
   home: '/',
+  movie: '/movie',
+  search: '/search',
 };
 
 /**
@@ -22,7 +25,15 @@ export const requestBuilder = (endpoint = 'discover', params) => {
       break;
 
     case 'search':
-      server = server.concat('search/movie/');
+      server = server.concat('search/movie');
+      break;
+
+    case 'movie':
+      server = server.concat(`movie/${params.movie_id}`);
+      break;
+
+    case 'genre':
+      server = server.concat('genre/movie/list');
       break;
 
     default:
