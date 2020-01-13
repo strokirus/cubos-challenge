@@ -1,15 +1,17 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { func, object, string } from 'prop-types';
-import { Map, TileLayer, Marker } from 'react-leaflet';
-import MarkerClusterGroup from 'react-leaflet-markercluster';
-import Modal from 'react-responsive-modal';
+import Loading from '../../components/Loading/Loading';
+import MapComponent from '../../components/MapComponent/MapComponent';
+import ModalComponent from '../../components/ModalComponent/ModalComponent';
 
 import {
   fetchStations,
 } from './actions';
 
 import history from '../../helpers/history';
+
+import { TOTAL_ZOOM } from '../../settings';
 
 class Stations extends Component {
   constructor() {
@@ -52,7 +54,7 @@ class Stations extends Component {
   }
 
   onChangeZoom = (zoom) => {
-    if (zoom.target.getZoom() && zoom.target.getZoom() <= 5) {
+    if (zoom.target.getZoom() && zoom.target.getZoom() <= TOTAL_ZOOM) {
       this.goHome();
     }
   }
@@ -63,45 +65,22 @@ class Stations extends Component {
 
     return (
       <Fragment>
-        {(stations && stations.data.isFetching) &&
-          <p
-            className="title-loading"
-          >
-            Loading...
-          </p>
+        {stations && stations.data.isFetching &&
+          <Loading />
         }
 
         <Fragment>
           {stations && stations.data.info.stations && stations.data.info.stations.length > 0 &&
-            <Map
-              className="markercluster-map"
-              center={
-                [
-                  stations.data.info.location.latitude,
-                  stations.data.info.location.longitude,
-                ]
-              }
+            <MapComponent
+              center={{
+                latitude: stations.data.info.location.latitude,
+                longitude: stations.data.info.location.longitude,
+              }}
+              points={[stations.data.info.stations]}
+              onClick={this.onClickStation}
               zoom={10}
-              onzoomend={e => this.onChangeZoom(e)}
-            >
-              <TileLayer
-                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"
-              />
-
-              <MarkerClusterGroup
-                onMarkerClick={marker => this.onClickStation(marker)}
-              >
-                {stations.data.info.stations.map((g, i) => (
-                  <Marker
-                    key={i}
-                    id={g.id}
-                    station={g}
-                    position={[g.latitude, g.longitude]}
-                  />
-                ))}
-              </MarkerClusterGroup>
-            </Map>
+              zoomend={this.onChangeZoom}
+            />
           }
 
           {stations && stations.data.info.stations && stations.data.info.stations.length === 0 &&
@@ -128,28 +107,12 @@ class Stations extends Component {
         </Fragment>
 
         {Object.keys(station).length > 0 &&
-          <Modal
+          <ModalComponent
             open={open}
-            onClose={this.onCloseModal}
-          >
-            <h2
-              style={{ width: '95%', lineHeight: 'normal' }}
-            >
-              {station.name}
-            </h2>
-
-            {Object.keys(station).map((s) => {
-              if (s !== 'name' && typeof station[s] !== 'object') {
-                return (<p>{`${s}: ${station[s]}`}</p>);
-              } else if (typeof station[s] === 'object') {
-                return (Object.keys(station[s]).map(e => (
-                  <p>{`${e}: ${station[s][e]}`}</p>
-                )));
-              }
-
-              return ('');
-            })}
-          </Modal>
+            onCloseModal={this.onCloseModal}
+            title={station.name}
+            info={station}
+          />
         }
       </Fragment>
     );

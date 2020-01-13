@@ -1,5 +1,5 @@
 export const CITYBIK_SERVER = '//api.citybik.es/v2/';
-export const TOTAL_PAGINATION = 5;
+export const TOTAL_ZOOM = 7;
 
 /**
  * Describe all routes is available in project

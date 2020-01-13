@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Map, TileLayer, Marker } from 'react-leaflet';
-import MarkerClusterGroup from 'react-leaflet-markercluster';
 import { func, object } from 'prop-types';
+import Loading from '../../components/Loading/Loading';
+import MapComponent from '../../components/MapComponent/MapComponent';
 
 import {
   fetchNetworks,
@@ -41,46 +41,20 @@ class Networks extends Component {
     return (
       <Fragment>
         {(networks && networks.show && networks.info.isFetching) &&
-          <p
-            className="title-loading"
-          >
-            Loading...
-          </p>
+          <Loading />
         }
 
         <Fragment>
           {networks && networks.info.results.length > 0 &&
-            <Map
-              className="markercluster-map"
-              center={
-                [
-                  networks.info.results[0].location.latitude,
-                  networks.info.results[0].location.longitude,
-                ]
-              }
-              zoom={1}
-            >
-              <TileLayer
-                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"
-              />
-
-              {networks && Object.values(networks.info.countries).map((c, cc) => (
-                <MarkerClusterGroup
-                  key={cc}
-                  singleMarkerMode
-                  onMarkerClick={marker => this.onClickNetwork(marker)}
-                >
-                  {c.map((g, i) => (
-                    <Marker
-                      key={i}
-                      id={g.id}
-                      position={[g.location.latitude, g.location.longitude]}
-                    />
-                  ))}
-                </MarkerClusterGroup>
-              ))}
-            </Map>
+            <MapComponent
+              center={{
+                latitude: networks.info.results[0].location.latitude,
+                longitude: networks.info.results[0].location.latitude,
+              }}
+              points={networks && Object.values(networks.info.countries)}
+              singleMarker
+              onClick={this.onClickNetwork}
+            />
           }
         </Fragment>
 
