@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
-import search from './containers/Search/reducers';
-import movie from './containers/Movie/reducers';
+import networks from './containers/Networks/reducers';
+import stations from './containers/Stations/reducers';
 
 const mainReducer = combineReducers({
-  search,
-  movie,
+  networks,
+  stations,
 });
 
 /**

@@ -8,7 +8,7 @@ Enzyme.configure({ adapter: new Adapter() });
 expect.addSnapshotSerializer(
   createSerializer(emotion, {
     classNameReplacer(className, index) {
-      return `cubos-${index}`;
+      return `fieldtryout-${index}`;
     },
   }),
 );

@@ -10,15 +10,21 @@ import {
  * @return {Object} Information related by our api and via cep with
  * logradouro, bairro, and geo (lat,lng)
  */
-export const requestMovie = id => (
-  axios({
-    url: `${requestBuilder('movie', { movie_id: id, language: 'pt-BR' })}`,
+export const requestNetworks = (params = {}) => {
+  const paramsSearch = { };
+
+  Object.keys(params).forEach((k) => {
+    paramsSearch[k] = params[k];
+  });
+
+  return axios({
+    url: `${requestBuilder('networks', paramsSearch)}`,
     method: 'GET',
   }).then(result => (
     result
-  ))
-);
+  ));
+};
 
 export default {
-  requestMovie,
+  requestNetworks,
 };

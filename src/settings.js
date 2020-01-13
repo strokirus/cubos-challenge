@@ -1,5 +1,4 @@
-export const MOVIEDB_API_KEY = '7d7e7b567dc60a1fe9771413fc6472d8';
-export const MOVIEDB_SERVER = 'https://api.themoviedb.org/3/';
+export const CITYBIK_SERVER = 'http://api.citybik.es/v2/';
 export const TOTAL_PAGINATION = 5;
 
 /**
@@ -7,8 +6,8 @@ export const TOTAL_PAGINATION = 5;
 */
 export const routePaths = {
   home: '/',
-  movie: '/movie',
-  search: '/search',
+  networks: '/networks',
+  stations: '/stations',
 };
 
 /**
@@ -17,36 +16,20 @@ export const routePaths = {
  * @return {String} What server should be connected
 */
 export const requestBuilder = (endpoint = 'discover', params) => {
-  let server = MOVIEDB_SERVER;
+  let server = CITYBIK_SERVER;
 
   switch (endpoint) {
-    case 'discover':
-      server = server.concat('discover/movie/');
+    case 'networks':
+      server = server.concat('networks/');
       break;
 
-    case 'search':
-      server = server.concat('search/movie');
-      break;
-
-    case 'movie':
-      server = server.concat(`movie/${params.movie_id}`);
-      break;
-
-    case 'genre':
-      server = server.concat('genre/movie/list');
+    case 'station':
+      server = server.concat(`networks/${params.network_id}`);
       break;
 
     default:
-      server = server.concat('discover/movie/');
+      server = server.concat('networks/');
       break;
-  }
-
-  server = server.concat('?api_key=').concat(MOVIEDB_API_KEY);
-
-  if (params && Object.keys(params).length > 0) {
-    Object.keys(params).forEach((p) => {
-      server = server.concat(`&${p}=${params[p]}`);
-    });
   }
 
   return server;

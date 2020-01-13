@@ -16,7 +16,7 @@
 
 body, html {
   font-family: sans-serif;
-  font-family: 'Abel', 'Lato', sans-serif;
+  font-family: OpenSans-Light,Arial,"Helvetica Neue",Helvetica,sans-serif;
   font-weight: 300;
   line-height: 1.5;
   color: var(--black);
@@ -27,6 +27,22 @@ body, html {
 * {
   margin: 0;
   padding: 0;
+}
+
+/**
+* Container of leaflet project to show map
+*/
+.leaflet-container {
+  height: calc(100% - 1px);
+  width: 100%;
+  position: absolute;
+}
+
+.title-loading {
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  bottom: 50%;  
 }
 
 header button {
@@ -74,187 +90,5 @@ h3 {
 }
 
 .flex-container > * {
-  padding: 15px;
   flex: 1 100%;
-}
-
-header#page {
-  padding: 0.5% 5%;
-  margin: 0 auto;
-  background-color: var(--back-blue);
-}
-
-header#page h1 {
-  color: var(--blue-title);
-}
-
-header > div {
-  display: flex;
-}
-
-header > div > p {
-  padding-top: 8px;
-  padding-right: 10px;
-}
-
-header > div > button {
-  margin-left: 10px;
-}
-
-input[type=text] {
-  font-size: 1rem;
-  font-weight: 300;
-  border-radius: 15px;
-  background-clip: padding-box;
-  transition: all .2s ease;
-  background-color: #EBEBEB;
-  color: #1D719D;
-  outline: none;
-  -webkit-appearance: none;
-  width: 100%;
-  resize: none;
-  padding: 0.6rem;
-  border: 1px solid var(--gray);
-}
-
-input:hover, input:focus {
-  transition: all .2s ease;
-  cursor: auto;
-}
-
-article {
-  max-width: 88%;
-  padding: 3% 5%;
-  margin: 10px auto;
-  text-align: left;
-  position: relative;
-  display: grid;
-  grid-template-columns: [col1-start] 204px  [col2-start] auto [col2-end];
-  background-color: #fff;
-  color: #444;  
-}
-
-article > section#img {
-  grid-column: col1-start;
-  position: relative;
-  grid-row: row1-start / row2-end;
-
-}
-
-article > section#img > img {
-  width: 100%;
-  height: 100%;
-  min-height: 264px;
-  max-height: 264px;
-  max-width: 204px;
-}
-
-article > section#info {
-  grid-column: col2-start;
-  grid-row: row1-start / row2-end;
-  background-color: #EBEBEB;
-}
-
-article > section#info > header {
-  position: relative;
-}
-
-article > section#info > header > h1 {
-  font-size: 28px;
-  background-color: var(--back-blue);
-  color: var(--blue-title);
-  padding: 20px 0 5px 85px;
-}
-
-article > section#info > footer {
-  padding: 20px 20px 0 20px;
-}
-
-article > section#info > footer > span {
-  float: left;
-  margin-right: 5px;
-  border: 1px solid var(--back-blue);
-  color: var(--back-blue);
-  padding: 2px 10px;
-  border-radius: 15px;
-  background-color: var(--white);
-}
-
-article > section#info > header > p {
-  font-size: 14px;
-  background-color: transparent;
-  color: var(--black);
-  padding: 5px 0 10px 85px;
-  max-height: 85px;
-  overflow: hidden;
-}
-
-article > section#info > header > span {
-  position: absolute;
-  top: 20px;
-  left: 10px;  
-  text-align: center;
-  display: inline-block;
-  border-radius: 30px;
-  display: grid;
-  background-color: var(--back-blue);
-  border: 3px solid var(--blue-title);
-  font-weight: 800;
-  color: var(--blue-title);
-  width: 60px;
-  height: 60px;
-  font-size: 25px;
-  justify-items: center;
-  align-items: center;  
-}
-
-article > section#info > p {
-  padding: 0 20px 0 20px;
-  height: 100px;
-  width: auto;
-  line-height: 20px;
-  word-break: break-word;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-footer#pag {
-  text-align: center;
-  width: 30%;
-  margin: 0 auto;
-}
-
-footer#pag > ul {
-  width: 36%;
-  margin: 0 auto;
-  text-align: center;
-}
-
-footer#pag > ul#pagination > li {
-  float: left;
-  color: black;
-  float: left;
-  padding: 8px 16px;
-  cursor: pointer;
-  font-size: 20px;
-  color: var(--blue-title);
-  text-decoration: none;
-  transition: background-color .3s;
-}
-
-footer#pag > ul#pagination > li.selected {
-  text-align: center;
-  display: inline-block;
-  border-radius: 30px;
-  display: grid;
-  background-color: var(--back-blue);
-  border: 3px solid var(--blue-title);
-  font-weight: 800;
-  color: var(--blue-title);
-  justify-items: center;
-  align-items: center;  
-}
-
-
-@media (max-width: 620px) {
 }

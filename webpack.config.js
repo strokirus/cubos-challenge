@@ -24,7 +24,7 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       'process.env': {
-        CUBOS_VERSION: JSON.stringify(require('./package.json').version), // eslint-disable-line
+        FIELDTRYOUT_VERSION: JSON.stringify(require('./package.json').version), // eslint-disable-line
       },
     }),
     new webpack.NamedModulesPlugin(),
