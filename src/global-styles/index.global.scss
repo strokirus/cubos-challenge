@@ -92,3 +92,11 @@ h3 {
 .flex-container > * {
   flex: 1 100%;
 }
+
+.back-close {
+  text-align: left;
+  font-size: 22px;
+  font-weight: bold;
+  margin: 10px 20px;
+  cursor: pointer;
+}

@@ -68,6 +68,7 @@ class Networks extends Component {
               {networks && Object.values(networks.info.countries).map((c, cc) => (
                 <MarkerClusterGroup
                   key={cc}
+                  singleMarkerMode
                   onMarkerClick={marker => this.onClickNetwork(marker)}
                 >
                   {c.map((g, i) => (

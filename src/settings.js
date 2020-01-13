@@ -1,4 +1,4 @@
-export const CITYBIK_SERVER = 'http://api.citybik.es/v2/';
+export const CITYBIK_SERVER = '//api.citybik.es/v2/';
 export const TOTAL_PAGINATION = 5;
 
 /**

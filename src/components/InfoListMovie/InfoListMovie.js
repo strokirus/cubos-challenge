@@ -1,9 +1,6 @@
 import React from 'react';
 import { object, func } from 'prop-types';
 
-import Rating from '../Rating/Rating';
-import Chip from '../Chip/Chip';
-
 const InfoListMovie = ({ info, onClick }) => (
   <article
     onClick={onClick}
@@ -25,12 +22,6 @@ const InfoListMovie = ({ info, onClick }) => (
           <h1>{info.title}</h1>
         }
 
-        {info.rating &&
-          <Rating
-            text={info.rating}
-          />
-        }
-
         {info.release_date &&
           <p>{info.release_date}</p>
         }
@@ -39,16 +30,6 @@ const InfoListMovie = ({ info, onClick }) => (
       {info.overview &&
         <p>{info.overview}</p>
       }
-
-      <footer>
-        {info.genres && info.genres.map(g => (
-          <Chip
-            id={g.id}
-            key={g.id}
-            text={g.name}
-          />
-        ))}
-      </footer>
     </section>
   </article>
 );

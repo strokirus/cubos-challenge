@@ -9,6 +9,8 @@ import {
   fetchStations,
 } from './actions';
 
+import history from '../../helpers/history';
+
 class Stations extends Component {
   constructor() {
     super();
@@ -39,6 +41,22 @@ class Stations extends Component {
     this.setState({ station: marker.options.station });
   }
 
+  // eslint-disable-next-line react/sort-comp
+  goHome = () => {
+    history.push('/');
+    location.href = '/';
+  }
+
+  backButton = (e) => {
+    this.goHome(e);
+  }
+
+  onChangeZoom = (zoom) => {
+    if (zoom.target.getZoom() && zoom.target.getZoom() <= 5) {
+      this.goHome();
+    }
+  }
+
   render() {
     const { stations } = this.props;
     const { open, station } = this.state;
@@ -64,6 +82,7 @@ class Stations extends Component {
                 ]
               }
               zoom={10}
+              onzoomend={e => this.onChangeZoom(e)}
             >
               <TileLayer
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -86,17 +105,25 @@ class Stations extends Component {
           }
 
           {stations && stations.data.info.stations && stations.data.info.stations.length === 0 &&
-            <p
-              className="title-loading"
-            >
-              {stations.data.info.name}
-              <br />
-              No stations
-              <br />
-              Company: {stations.data.info.company.map(c => (c))}
-              <br />
-              Location: {`${stations.data.info.location.city} - ${stations.data.info.location.country}`}
-            </p>
+            <Fragment>
+              <div
+                className="back-close"
+                onClick={e => this.backButton(e)}
+              >
+                x
+              </div>
+              <p
+                className="title-loading"
+              >
+                {stations.data.info.name}
+                <br />
+                No stations
+                <br />
+                Company: {stations.data.info.company.map(c => (c))}
+                <br />
+                Location: {`${stations.data.info.location.city} - ${stations.data.info.location.country}`}
+              </p>
+            </Fragment>
           }
         </Fragment>
 
@@ -105,10 +132,23 @@ class Stations extends Component {
             open={open}
             onClose={this.onCloseModal}
           >
-            <h2>{station.name}</h2>
-            <p>
-              {station.timestamp}
-            </p>
+            <h2
+              style={{ width: '95%', lineHeight: 'normal' }}
+            >
+              {station.name}
+            </h2>
+
+            {Object.keys(station).map((s) => {
+              if (s !== 'name' && typeof station[s] !== 'object') {
+                return (<p>{`${s}: ${station[s]}`}</p>);
+              } else if (typeof station[s] === 'object') {
+                return (Object.keys(station[s]).map(e => (
+                  <p>{`${e}: ${station[s][e]}`}</p>
+                )));
+              }
+
+              return ('');
+            })}
           </Modal>
         }
       </Fragment>

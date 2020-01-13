@@ -8,6 +8,10 @@ import C from './constants';
 
 import history from '../../helpers/history';
 
+import {
+  dateFormat,
+} from '../../utils';
+
 /**
  * Trigged when Stations Request is demmanded
 */
@@ -15,6 +19,10 @@ function* fetchStations(data) {
   try {
     const response = yield call(requestStation, { network_id: data.params.id });
     if (response.data && response.data.network) {
+      response.data.network.stations = response.data.network.stations.map(s => ({
+        ...s,
+        timestamp: dateFormat(s.timestamp),
+      }));
       yield put({
         type: C.FETCH_STATIONS_SUCCESS,
         data: response.data.network,
